@@ -149,13 +149,17 @@ int main(int argc, char *argv[]) {
     char unit[64]={0};
     char ls[256]={0};
     int rate=0;
+    int rat2=0;
     int two=0;
 
     opterr=0;
-    while((c=getopt(argc, argv, "2rc:c:e:s:m:t:u:")) != -1)
+    while((c=getopt(argc, argv, "2rbc:c:e:s:m:t:u:")) != -1)
         switch(c) {
             case 'r':
                 rate=1;
+                break;
+            case 'b':
+                rat2=1;
                 break;
             case '2':
                 two=1;
@@ -227,7 +231,27 @@ int main(int argc, char *argv[]) {
         if(values2[n] < 0)
             values2[n] = 0;
 
-        if(rate) {
+        if(rat2) {
+            t2=t1;
+            time(&t1);
+            td=t1-t2;
+            if(td==0)
+                td=1;
+
+            if(two) {
+                if(cval2==FLT_MAX)
+                    pval2=values2[n];
+                else
+                    pval2=cval2;
+                cval2=values2[n];
+
+                values2[n]=(cval2-pval2)/td;
+
+                if(values2[n] < 0) // counter rewind
+                    values2[n]=0;
+            }
+        } 
+        else if(rate) {
             t2=t1;
             time(&t1);
             td=t1-t2;
