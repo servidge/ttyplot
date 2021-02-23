@@ -80,7 +80,8 @@ ping 8.8.8.8 | sed -u 's/^.*time=//g; s/ ms//g' | ttyplot -t "ping to 8.8.8.8" -
 ```
 
 ### ping plot with awk and drops as Background value 
-(2nd value probably not to be seen since the value is idealy 1. Ping is a bad example since after the first Drop the sequence number and sample rate is in slight drift)
+2nd value probably not to be seen since the value is idealy 1. 
+Ping is a bad example since after the first Drop the sequence number and sample rate is in slight drift
 ```
 ping -A 8.8.8.8 | awk '{gsub(/\=/, " "); print $10 " " $6; fflush(); }'  | ./ttyplot -2 -b -t "ping to 8.8.8.8, backgroud=drops" -u ms
 ```
