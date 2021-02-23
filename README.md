@@ -79,6 +79,11 @@ on macOS change `-u` to `-l`
 ping 8.8.8.8 | sed -u 's/^.*time=//g; s/ ms//g' | ttyplot -t "ping to 8.8.8.8" -u ms
 ```
 
+### ping plot with awk
+```
+ping -A 8.8.8.8 | awk '{gsub(/\=/, " "); print $10 " " $6; fflush(); }'  | ./ttyplot -2 -b -t "ping to 8.8.8.8, backgroud=drops" -u ms
+```
+
 ### wifi signal level in -dBM (higher is worse) using iwconfig
 ```
 { while true; do iwconfig 2>/dev/null | grep "Signal level" | sed -u 's/^.*Signal level=-//g; s/dBm//g'; sleep 1; done } | ttyplot -t "wifi signal" -u "-dBm" -s 90
@@ -180,6 +185,7 @@ flags
 
   -2 read two values and draw two plots, the second one is in reverse video
   -r rate of a counter (divide value by measured sample interval)
+  -b rate just the the 2nd counter (divide value by measured sample interval)
   -c character to use for plot line, eg @ # % . etc
   -e character to use for plot error line when value exceeds hardmax (default: e)
   -s initial scale of the plot (can go above if data input has larger value)

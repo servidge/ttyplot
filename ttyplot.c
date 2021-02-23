@@ -35,9 +35,10 @@
 #endif
 
 void usage() {
-    printf("Usage:\n  ttyplot [-2] [-r] [-c plotchar] [-s scale] [-m max] [-t title] [-u unit]\n\n"
+    printf("Usage:\n  ttyplot [-2] [-r] [-b] [-c plotchar] [-s scale] [-m max] [-t title] [-u unit]\n\n"
             "  -2 read two values and draw two plots, the second one is in reverse video\n"
             "  -r rate of a counter (divide value by measured sample interval)\n"
+            "  -b rate just the the 2nd counter (divide value by measured sample interval)\n"
             "  -c character to use for plot line, eg @ # %% . etc\n"
             "  -e character to use for error line when value exceeds hardmax (default: e)\n"
             "  -s initial scale of the plot (can go above if data input has larger value)\n"
